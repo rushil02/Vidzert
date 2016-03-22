@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}
+</head>
+<body>
+<table class="table table-hover table-bordered">
+    <thead class="thead-default">
+    <tr>
+        <th>Client</th>
+        <th>Maximum Coins</th>
+        <th>Active</th>
+        <th>Name</th>
+        <th>Create Time</th>
+        <th>Update Time</th>
+        <th>Display</th>
+    </tr>
+    </thead>
+    {% for survey in surveys %}
+        {% if survey.active %}
+            <tr class="table-success">
+                {% else %}
+            <tr class="table-danger">
+        {% endif %}
+
+    <td>{{ survey.client_id }}</td>
+    <td>{{ survey.max_coins }}</td>
+    <td>{{ survey.active }}</td>
+    <td>{{ survey.title }}</td>
+    <td>{{ survey.create_time }}</td>
+    <td>{{ survey.update_time }}</td>
+    {% if not survey.active %}
+        <td>
+            <button onclick="location.href = '/staff/display_survey/{{ survey.uuid }}/';" class="btn btn-default">
+                Display
+            </button>
+        </td>
+    {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</body>
+</html>

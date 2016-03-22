@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{{ error_message }}<br>
+<form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ video_file_form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% extends "promoter/base.html" %}
+
+{% block content-middle %}
+
+    <div class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2>Surveys</h2>
+            </div>
+            <div class="panel-body">
+                {% for survey in surveys %}
+                    <a href="/pr/fill_survey/{{ survey.uuid }}/"><h2>{{ survey }}</h2></a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content-middle %}

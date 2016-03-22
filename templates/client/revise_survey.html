@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form method="post" action="">
+    {% csrf_token %}
+    {{ survey_info_form.as_p }}
+    {{ survey_account_form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

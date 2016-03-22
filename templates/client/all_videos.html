@@ -1,0 +1,166 @@
+{% extends "client/base.html" %}
+{% block content-middle %}
+    <div class="col-md-9">
+        <div class="panel panel-info">
+            <div class="panel-heading">Active Videos</div>
+            <div class="panel-body">
+                <div class="row">
+                    {% for video in active_videos %}
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <img src="{{ video.videofile.thumbnail_image.url }}" alt="...">
+
+                                <div class="caption">
+                                    <a href="{% url 'client:insights' video.uuid %}">
+
+                                        <h4>{{ video.name }}</h4>
+                                        Views = {{ video.videoinsights.total_views }}
+
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">Edit Videos</div>
+            <div class="panel-body">
+                <div class="row">
+                    {% for video in edit_videos %}
+                        <div class="col-sm-6 col-md-4">
+
+                            <div class="thumbnail">
+
+                                <div class="caption">
+                                    <a href="{% url 'client:edit_video' video.uuid %}">
+                                        <h4>{{ video.name }}</h4>
+                                    </a>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">Completed Videos</div>
+            <div class="panel-body">
+                <div class="row">
+                    {% for video in completed_videos %}
+                        <div class="col-sm-6 col-md-4">
+
+                            <div class="thumbnail">
+                                {% if video.videofile.thumbnail_image %}
+                                    <img src="{{ video.videofile.thumbnail_image.url }}" alt="...">
+                                {% endif %}
+
+                                <div class="caption">
+                                    <a href="/cl/video/{{ video.uuid }}/">
+                                        <h4>{{ video.name }}</h4>
+                                        Views = {{ video.videoinsights.total_views }}<br>
+                                    </a>
+                                    <input type="button" class="btn btn-primary" value="Upload Again"
+                                           onclick="window.location='/cl/revise/{{ video.uuid }}';">
+                                </div>
+                            </div>
+
+
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">File Upload Videos</div>
+            <div class="panel-body">
+                <div class="row">
+                    {% for video in file_upload_due_videos %}
+                        <div class="col-sm-6 col-md-4">
+
+                            <div class="thumbnail">
+
+                                <div class="caption">
+                                    <a href="{% url 'client:upload_file' video.uuid %}">
+                                        <h4>{{ video.name }}</h4>
+                                    </a>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">In Process Videos</div>
+            <div class="panel-body">
+                <div class="row">
+                    {% for video in in_auth_process_videos %}
+                        <div class="col-sm-6 col-md-4">
+
+                            <div class="thumbnail">
+
+                                <div class="caption">
+                                    <h4>{{ video.name }}</h4>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">Payment Due Videos</div>
+            <div class="panel-body">
+                <div class="row">
+                    {% for video in payment_due_videos %}
+                        <div class="col-sm-6 col-md-4">
+
+                            <div class="thumbnail">
+
+                                <div class="caption">
+                                    <h4>{{ video.name }}</h4>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">Error Videos</div>
+            <div class="panel-body">
+                <div class="row">
+                    {% for video in error_videos %}
+                        <div class="col-sm-6 col-md-4">
+
+                            <div class="thumbnail">
+
+                                <div class="caption">
+                                    <h4>{{ video.name }}</h4>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content-middle %}

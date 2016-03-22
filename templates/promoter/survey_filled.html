@@ -1,0 +1,29 @@
+{% extends "promoter/base.html" %}
+
+{% block content-middle %}
+    <div class="col-md-9">
+        <div class="panel panel-info">
+            <div class="panel-heading">Surveys Filled</div>
+            <div class="panel-body">
+                <div class="row">
+                    {% for log in logs %}
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+
+                                <div class="caption">
+                                    <a> {{ log.survey_id__uuid }}Name: {{ log.survey_id__title }}<br>
+                                        Max coins:{{ log.survey_id__max_coins }}<br>
+                                        Publisher:{{ log.survey_id__publisher }}<br>
+                                        Coins Won = {{ log.coins }}</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content-middle %}

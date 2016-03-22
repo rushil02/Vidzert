@@ -1,0 +1,107 @@
+{% extends 'client/base.html' %}
+{#{% block navbar %}#}
+{##}
+{#    <div class="logo-area">#}
+{#        <span id="trigger-sidebar" class="toolbar-trigger toolbar-icon-bg">#}
+{#            <a data-toggle="tooltips" data-placement="right" title="Toggle Sidebar">#}
+{#                <span class="icon-bg">#}
+{#                    <i class="ti ti-menu"></i>#}
+{#                </span>#}
+{#            </a>#}
+{#        </span>#}
+{##}
+{#        <a class="navbar-brand" href="/">Vidzert</a>#}
+{##}
+{##}
+{#    </div>#}
+{#    <!-- logo-area -->#}
+{##}
+{##}
+{##}
+{#{% endblock navbar %}#}
+{##}
+{#{% block sidebar %}#}
+{#    <div class="static-sidebar">#}
+{#        <div class="sidebar">#}
+{#            <div class="widget stay-on-collapse" id="widget-sidebar">#}
+{#                <nav role="navigation" class="widget-body">#}
+{#                    <ul class="acc-menu">#}
+{#                        <li><a href="/"><i class="ti ti-home"></i><span>Home</span></a></li>#}
+{#                        <li><a href="/cl/"><i class="ti ti-home"></i><span>Dashboard</span></a></li>#}
+{#                        <li class="nav-separator"><span>Personal</span></li>#}
+{#                        <li><a href="/cl/profile/"><i class="ti ti-settings"></i><span>My Profile</span></a></li>#}
+{#                        <li><a href="/cl/profile/edit/"><i class="ti ti-settings"></i><span>Edit Profile</span></a></li>#}
+{#                        <li><a href="#"><i class="ti ti-video-camera"></i><span>Active Videos</span></span>#}
+{#                        </a></li>#}
+{#                        <li><a href="#"><i class="ti ti-alert"></i><span>Non-Active Videos</span></span>#}
+{#                        </a></li>#}
+{#                        <li><a href="/cl/upload/"><i class="ti ti-upload"></i><span>Upload Video</span></span></a></li>#}
+{#                        <li><a href="/cl/survey/"><i class="ti ti-upload"></i><span>Survey</span></span></a></li>#}
+{#                        <li class="nav-separator"><span>Extras</span></li>#}
+{#                        <li><a href="#"><i class="ti ti-layout"></i><span>About Us</span></a></li>#}
+{#                        <li><a href="#"><i class="ti ti-view-list-alt"></i><span>Terms of use</span></a></li>#}
+{#                        <li><a href="#"><i class="ti ti-control-shuffle"></i><span>FAQ</span></a></li>#}
+{#                        <li><a href="#"><i class="ti ti-shield"></i><span>Security</span></a></li>#}
+{#                        <li><a href="#"><i class="ti ti-email"></i><span>Contact us</span></a></li>#}
+{##}
+{#                        <hr>#}
+{##}
+{#                        <li><a href="#"><i class="ti ti-close"></i><span>Logout</span></a></li>#}
+{#                    </ul>#}
+{#                </nav>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#{% endblock sidebar %}#}
+
+{% block content-middle %}
+
+    <div class="static-content">
+    <div class="page-content">
+
+    <div class="container-fluid">
+
+
+    <div class="row">
+    <div class="col-md-9">
+    <div class="tab-pane" id="tab-edit">
+        <div class="panel">
+            <div class="panel-heading">
+                <h2>Upload Video</h2>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form method="post" action="" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ video_form.non_field_errors }}
+                            {{ video_form.as_p }}
+
+                            {{ video_profile_form.non_field_errors }}
+                            {{ video_profile_form.as_p }}
+
+                            {{ video_info_form.non_field_errors }}
+                            {{ video_info_form.as_p }}
+
+                            {{ video_account_form.non_field_errors }}
+                            {{ video_account_form.as_p }}
+
+{#                            {{ video_file_form.non_field_errors }}#}
+{#                            {{ video_file_form.as_p }}#}
+                            <input type="submit" name="Submit" value="Sumbit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+{% endblock content-middle %}
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+

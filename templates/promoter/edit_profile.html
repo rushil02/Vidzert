@@ -1,0 +1,93 @@
+{% extends 'promoter/base.html' %}
+
+{% block content-middle %}
+    <div class="col-md-9">
+        <div class="static-content">
+            <div class="page-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="tab-pane" id="tab-edit">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h2>Edit</h2>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <form class="form-horizontal tabular-form" method="post" action="">
+                                                    {% csrf_token %}
+                                                    {{ form.non_field_errors }}
+                                                    <div class="form-group">
+                                                        <label for="form-name"
+                                                               class="col-sm-2 control-label">Name</label>
+
+                                                        <div class="col-sm-8 tabular-border">
+                                                            {{ form.last_name }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="form-dob" class="col-sm-2 control-label">DOB</label>
+
+                                                        <div class="col-sm-8 tabular-border">
+                                                            {{ form.dob }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="form-gender"
+                                                               class="col-sm-2 control-label">Gender</label>
+
+                                                        <div class="col-sm-8 tabular-border">
+                                                            {{ form.gender }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="form-city"
+                                                               class="col-sm-2 control-label">City</label>
+
+                                                        <div class="col-sm-8 tabular-border">
+                                                            {{ form.area_city }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="form-state"
+                                                               class="col-sm-2 control-label">State</label>
+
+                                                        <div class="col-sm-8 tabular-border">
+                                                            {{ form.area_state }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="form-PAN" class="col-sm-2 control-label">PAN</label>
+
+                                                        <div class="col-sm-8 tabular-border">
+                                                            {{ form.PAN }}
+                                                        </div>
+                                                    </div>
+
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <div class="row">
+                                            <div class="col-sm-8 col-sm-offset-2">
+                                                <input type="submit" class="btn-primary btn" value="Save">
+                                                <button class="btn-default btn">Reset</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content-middle %}

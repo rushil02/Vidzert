@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+Ticket Reference Number = {{ ticket.ref_no }}<br>
+    Email = {{ ticket.submitter_email }}<br>
+    Title = {{ ticket.title }}<br>
+    Subject = {{ ticket.ticket_type}}<br>
+    Status = {{ ticket.status }}<br>
+
+<h2>Change Status</h2>
+<form method="post" action="">
+    {% csrf_token %}
+    {{ ticket_status_form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+
+<h2>Messages</h2>
+{% for message in messages %}
+    {% if not message.message_text == None %}
+        {% if message.sender_type == 'U' %}
+            {{ ticket.submitter_email }}: {{ message.message_text }}<br>
+        {% elif message.sender_type == 'A' %}
+            Admin: {{ message.message_text }}<br>
+        {% endif %}
+    {% endif %}
+
+    {% if not message.message_image.name == '' %}
+        {% if message.sender_type == 'U' %}
+            {{ ticket.submitter_email }}: <img src="{{ message.message_image.url }}"><br>
+        {% elif message.sender_type == 'A' %}
+            Admin: <img src="{{ message.message_image.url }}"><br>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+<h4>Reply</h4>
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ message_form.as_p }}
+        <input type='hidden' name="ticket_ref_no" value="{{ ticket.ref_no }}" />
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

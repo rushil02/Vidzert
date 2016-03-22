@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<video id="video1" class="video-js vjs-default-skin" controls
+       data-setup='{ "controlBar": { "playToggle": false, "progressControl": {"seekBar": false}}, "autoplay": false, "preload": "auto" }'
+       width="640" height="264" poster="http://vjs.zencdn.net/v/oceans.png">
+    <source src="{{ video.videofile.video_file_mp4.url }}" type="video/mp4">
+
+    <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
+    <source src="http://vjs.zencdn.net/v/oceans.ogv" type="video/ogg">
+    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser
+        that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+</video>
+<br>
+<br>
+<button id="authenticaion_button" onclick="window.location='/staff/authorise_video/{{ video.uuid }}/'">Authorise and
+    Activate
+</button>
+<br>
+
+<form method=post action="{% url 'staff:reject_video' video.uuid %}">{% csrf_token %}Error type: <br>
+    <input type="checkbox" name="file_error" value="FE"> Video File Error<br>
+    <input type="checkbox" name="info_error" value="IE"> Video Information Error<br>
+    <input type="text" name="error_message" required>
+    <input type="submit" value="Reject Video">
+</form>
+</body>
+</html>

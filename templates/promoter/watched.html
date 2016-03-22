@@ -1,0 +1,30 @@
+{% extends 'promoter/base.html' %}
+
+{% block content-middle %}
+    <div class="col-md-9">
+        <div class="panel panel-info">
+            <div class="panel-heading">Watched videos</div>
+            <div class="panel-body">
+                <div class="row">
+                    {% for log in logs %}
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <img src="/media/{{ log.video_id__videofile__thumbnail_image }}">
+
+                                <div class="caption">
+                                    <a href="/pr/watch/{{ log.video_id__uuid }}/">Name: {{ log.video_id__name }}<br>
+                                        Max coins:{{ log.video_id__max_coins }}<br>
+                                        Publisher:{{ log.video_id__publisher }}<br>
+                                        Coins Won = {{ log.coins }}</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content-middle %}
+

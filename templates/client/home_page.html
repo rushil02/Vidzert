@@ -1,0 +1,127 @@
+{% extends 'client/base.html' %}
+
+{% block content-middle %}
+    <div class="col-md-9">
+        <div class="panel panel-info">
+            <div class="panel-heading">Info</div>
+            <div class="panel-body">
+                <div class="row">
+            Number Of Videos = {{ all_videos.count }}<br>
+            Total Views = {{ video_totals.viewers }}<br>
+            Total Redirection = {{ video_totals.engagement }}<br>
+            Number of surveys = {{ all_surveys.count }} <br>
+            Video Expenditure = {{ video_totals.expenditure }} <br>
+            Survey Expenditure = {{ survey_totals.expenditure }} <br>
+            Survey Fills = {{ survey_totals.fills }} <br>
+            Video Count = {{ all_videos.count }} <br>
+            Survey Count = {{ all_surveys.count }} <br>
+        </div>
+            </div>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">List of all Videos</div>
+            <div class="panel-body">
+                <div class="row">
+                    {% for video in all_videos %}
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+
+                                <div class="caption">
+                                    <a href="/cl/video/{{ video.uuid }}/">
+
+                                        <h4>{{ video.name }}</h4>
+                                        Views = {{ video.videoinsights.total_views }}
+                                        <input type="button" class="btn btn-primary" value="Upload Again"
+                                               onclick="window.location='/cl/revise/{{ video.uuid }}';">
+
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">List of all surveys</div>
+            <div class="panel-body">
+                <div class="row">
+                    {% for survey in all_surveys %}
+                        <div class="col-sm-6 col-md-4">
+
+                            <div class="thumbnail">
+
+                                <div class="caption">
+                                    <a href="/cl/survey/{{ survey.uuid }}/">
+                                        <h1>{{ survey.title }}</h1>
+                                        Views = {{ survey.surveyinsights.total_views }}<br>
+                                    </a>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content-middle %}
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+
+    $('a.video_item').click(function () {
+        var id = $(this).attr('id');
+        {% if pre_perk or post_perk %}
+            $('#perk_form').attr('action', '/pr/watch/' + id + '/');
+            $('#myModal').modal('show');
+        {% else %}
+            $(location).attr('href', '/pr/watch/' + id + '/')
+        {% endif %}
+    });
+
+    {#        $('input.pre_perk_input').click(function() {#}
+    {#            var wrapper = $(".input_fields_wrap");#}
+    {#            if($('input.pre_perk_input').is(':checked')) {#}
+    {#                $(wrapper).append('Enter: <div><input type="text" name="position"/></div>'); //add input box#}
+    {#            }#}
+    {#            else{#}
+    {#                $(wrapper).hide();#}
+    {#            }#}
+    {#        });#}
+</script>
+

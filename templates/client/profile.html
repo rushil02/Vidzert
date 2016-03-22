@@ -1,0 +1,62 @@
+{% extends 'client/base.html' %}
+
+{% block content-middle %}
+
+    <div class="static-content">
+        <div class="page-content">
+
+            <div class="container-fluid">
+
+
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="tab-pane" id="tab-edit">
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h2>About</h2>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table about-table">
+                                                    <tbody>
+                                                    <tr>
+                                                        <th>Full Name</th>
+                                                        <td>{{ profile.client_id.name }}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th>Address</th>
+                                                        <td>{{ profile.address }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Contact</th>
+                                                        <td>{{ profile.contact2 }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Website</th>
+                                                        <td>{{ profile.website }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Email</th>
+                                                        <td>{{ profile.client_id. }}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <a href="{% url "client:update_profile" %}" class="btn btn-default">Edit Profile</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content-middle %}

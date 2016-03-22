@@ -1,0 +1,150 @@
+{% extends 'client/base.html' %}
+
+{% block content-middle %}
+
+    <div class="col-md-9">
+
+        <h1>{{ video }}</h1>
+        {% if video.videofile.video_file_mp4 %}
+        <video id="video1" class="video-js vjs-default-skin" controls
+               data-setup='{ "controlBar": { "playToggle": false, "progressControl": {"seekBar": false}}, "autoplay": false, "preload": "auto" }'
+               width="640" height="264" poster="http://vjs.zencdn.net/v/oceans.png">
+            <source src="{{ video.videofile.video_file_mp4.url }}" type="video/mp4">
+
+            <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
+            <source src="http://vjs.zencdn.net/v/oceans.ogv" type="video/ogg">
+            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser
+                that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+        </video>
+        {% endif %}
+
+        {% for insights in video_list %}
+
+    {% for key, value in insights.items %}
+        {% if key == "video" %}
+            <h2>Rivision for = {{ value.uuid }}</h2>
+        {% endif %}
+        {% endfor %}
+
+    {% for key, value in insights.items %}
+
+        {% if key == "video_insights" %}
+            <h4>Video totals</h4>
+            Promoters = {{ value.promoters }}<br>
+            Anonymous Viewers = {{ value.anonymous_viewers }}<br>
+            Back Links = {{ value.backlinks }}<br>
+            Engagement = {{ value.redirection_click }}<br>
+        {% elif key == "gender_insight" %}
+            <h4>Gender Views Insights</h4>
+            {% for g in value %}
+                {% if g.gender == "" or g.gender == None %}
+                {% else %}
+                    {{ g.gender }} = {{ g.count }}<br>
+                {% endif %}
+            {% endfor %}
+
+            {% elif key == "gender_engagement_insight" %}
+            <h4>Gender Engagement Insights</h4>
+            {% for g in value %}
+                {% if g.gender == "" or g.gender == None %}
+                {% else %}
+                    {{ g.gender }} = {{ g.count }}<br>
+                {% endif %}
+            {% endfor %}
+
+            {% elif key == "state_engagement_insight" %}
+            <h4>Geographical Engagement Insights</h4>
+            {% for s in value %}
+                {% if s.area_state == "" or s.area_state == None %}
+                {% else %}
+                    {{ s.area_state }} = {{ s.count }}<br>
+                {% endif %}
+            {% endfor %}
+        {% elif key == "state_insight" %}
+            <h4>Geographical Views Insights</h4>
+            {% for s in value %}
+                {% if s.area_state == "" or s.area_state == None %}
+                {% else %}
+                    {{ s.area_state}} = {{ s.count }}<br>
+                {% endif %}
+            {% endfor %}
+        {% elif key == "age_insights" %}
+            <h4>Age Insights</h4>
+            {% for age_key, age_value in value.items %}
+                {% if age_key == "below_18" %}
+                    Below 18 = {{ age_value }}<br>
+                {% elif age_key == "btw_18_25" %}
+                    Between 18 and 25 = {{ age_value }}<br>
+                {% elif age_key == "btw_25_40" %}
+                    Between 25 and 40 = {{ age_value }}<br>
+                {% elif age_key == "btw_40_60" %}
+                    Between 40 and 60 = {{ age_value }}<br>
+                {% elif age_key == "above_60" %}
+                    Above 60 = {{ age_value }}<br>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+    </div>
+    </div>
+{% endblock content-middle %}
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+
+    $('a.video_item').click(function () {
+        var id = $(this).attr('id');
+        {% if pre_perk or post_perk %}
+            $('#perk_form').attr('action', '/pr/watch/' + id + '/');
+            $('#myModal').modal('show');
+        {% else %}
+            $(location).attr('href', '/pr/watch/' + id + '/')
+        {% endif %}
+    });
+
+    {#        $('input.pre_perk_input').click(function() {#}
+    {#            var wrapper = $(".input_fields_wrap");#}
+    {#            if($('input.pre_perk_input').is(':checked')) {#}
+    {#                $(wrapper).append('Enter: <div><input type="text" name="position"/></div>'); //add input box#}
+    {#            }#}
+    {#            else{#}
+    {#                $(wrapper).hide();#}
+    {#            }#}
+    {#        });#}
+</script>
+</body>
+</html>

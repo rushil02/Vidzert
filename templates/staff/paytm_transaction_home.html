@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}
+</head>
+<body>
+
+<div class="modal fade" id="toggle_form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title">Choice Form</h2>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="form-horizontal" id="transaction_form" method="post">
+                        {% csrf_token %}
+                        <div class="form-group mb-md">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="ti ti-user"></i>
+                        </span>
+                                    <label>Paytm Transaction ID</label>
+                                    <input type="text" name="paytm_transaction_id">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="clearfix">
+                                <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+	<table class="table table-hover table-bordered">
+        <thead class="thead-default">
+    <tr>
+        <th>Reference Number</th>
+        <th>Promoter</th>
+        <th>Mobile Number</th>
+        <th>Coins</th>
+        <th>Amount</th>
+        <th>TDS</th>
+        <th>Paid</th>
+        <th>Create Time</th>
+        <th>Update Time</th>
+        <th>Toggle</th>
+    </tr>
+    </thead>
+    {% for transaction in paytm_transactions %}
+        {% if transaction.paid %}
+        <tr class="table-success">
+        {% else %}
+        <tr class="table-danger">
+        {% endif %}
+
+            <td>{{ transaction.ref_no }}</td>
+            <td>{{ transaction.promoter_id }}</td>
+            <td>{{ transaction.extra.mobile_no }}</td>
+            <td>{{ transaction.coins }}</td>
+            <td>{{ transaction.amount }}</td>
+            <td>{{ transaction.TDS }}</td>
+            <td>{{ transaction.paid }}</td>
+            <td>{{ transaction.create_time }}</td>
+            <td>{{ transaction.update_time }}</td>
+            {% if not transaction.paid %}
+            <td><button id="{{ transaction.uuid }}" class="toggle_button" data-toggle="modal" data-target="#toggle_form">Toggle Paid</button></td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+</table>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script>
+    $('button.toggle_button').click(function(){
+        var id = $(this).attr('id');
+        var url = '/staff/paytm_toggle_paid/' + id + '/';
+        $('#transaction_form').attr('action', url);
+        <!--$('#toggle_form').modal('show');-->
+        <!--$.getJSON(url, function(data) {-->
+            <!--status = data.updated;-->
+            <!--if (status){-->
+                <!--location.reload();-->
+            <!--}-->
+            <!--else{-->
+                <!--alert('Failed');-->
+            <!--}-->
+    <!--});-->
+    });
+
+    $("#transaction_form").submit(function(){
+    console.log('form submitted');
+        $.post($(this).attr("action"), $(this).serialize(), function(jsonData){
+            status = jsonData.updated;
+            if (status){
+                location.reload();
+            }
+            else{
+                alert('Failed');
+            }
+        }, "json");
+    });
+</script>
+<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
+        <!-- Load jQuery -->
+        <script type="text/javascript" src="/static/js/jqueryui-1.10.3.min.js"></script>
+        <!-- Load jQueryUI -->
+        <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+        <!-- Load Bootstrap -->
+        <script type="text/javascript" src="/static/js/enquire.min.js"></script>
+        <!-- Load Enquire -->
+
+        <script type="text/javascript" src="/static/plugins/velocityjs/velocity.min.js"></script>
+        <!-- Load Velocity for Animated Content -->
+        <script type="text/javascript" src="/static/plugins/velocityjs/velocity.ui.min.js"></script>
+
+        <script type="text/javascript" src="/static/plugins/wijets/wijets.js"></script>
+        <!-- Wijet -->
+
+        <script type="text/javascript" src="/static/plugins/codeprettifier/prettify.js"></script>
+        <!-- Code Prettifier  -->
+        <script type="text/javascript" src="/static/plugins/bootstrap-switch/bootstrap-switch.js"></script>
+        <!-- Swith/Toggle Button -->
+
+        <script type="text/javascript" src="/static/plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js"></script>
+        <!-- Bootstrap Tabdrop -->
+
+        <script type="text/javascript" src="/static/plugins/iCheck/icheck.min.js"></script>
+        <!-- iCheck -->
+
+        <script type="text/javascript" src="/static/plugins/nanoScroller/js/jquery.nanoscroller.min.js"></script>
+        <!-- nano scroller -->
+
+        <script type="text/javascript" src="/static/js/application.js"></script>
+        <script type="text/javascript" src="/static/demo/demo.js"></script>
+        <script type="text/javascript" src="/static/demo/demo-switcher.js"></script>
+</body>
+</html>

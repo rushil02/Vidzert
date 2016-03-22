@@ -1,0 +1,52 @@
+<div class="cotainer">
+    <div class="row">
+        <div class="panel panel-info col-md-10">
+          <div class="panel-heading">Ads Videos list</div>
+          <div class="panel-body">
+            <div class="row">
+                {% for video in queryset %}
+              <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="/media/{{ video.videofile__thumbnail_image }}" alt="...">
+                  <div class="caption">
+                    <h3><a href="/watch/{{ video.slug }}/">{{ video.name }}</a></h3>
+                    <a> Max coins:{{ video.max_coins }}<br>
+                      Publisher:{{ video.publisher }}<br>
+                      </a><br>
+                  </div>
+                </div>
+              </div>
+                {% endfor %}
+             </div>
+          <div class="pagination">
+    <span class="step-links">
+        {% if queryset.has_previous %}
+            <a href="?page={{ queryset.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ queryset.number }} of {{ queryset.paginator.num_pages }}.
+        </span>
+
+        {% if queryset.has_next %}
+            <a href="?page={{ queryset.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+          </div>
+        </div>
+{#        <div class="panel panel-info col-md-2">#}
+{#          <div class="panel-heading">Top</div>#}
+{#          <div class="panel-body">#}
+{#            <h2>Alltime</h2>#}
+{#              {% for earner in earners %}#}
+{#                  {{ earner }} Coins Won = {{ earner.coins }}<br>#}
+{#              {% endfor %}#}
+{#            <h2>Today</h2>#}
+{#                {% for earner in latest_earners %}#}
+{#                  {{ earner }} Coins Won = {{ earner.coins }}<br>#}
+{#              {% endfor %}#}
+{#          </div>#}
+{#        </div>#}
+    </div>
+</div>

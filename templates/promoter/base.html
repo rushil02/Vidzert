@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% block title %}
+        <title>Vidzert</title>
+    {% endblock title %}
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="description" content="Vidzert, Make Money by watching videos">
+    <meta name="author" content="Vidzert">
+
+    {% block meta-tags %}
+    {% endblock meta-tags %}
+
+    <link type='text/css' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600'
+          rel='stylesheet'>
+
+    <link type="text/css" href="/static/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link type="text/css" href="/static/fonts/themify-icons/themify-icons.css" rel="stylesheet">
+    <link type="text/css" href="/static/css/styles.css" rel="stylesheet">
+
+    <link type="text/css" href="/static/plugins/codeprettifier/prettify.css" rel="stylesheet">
+    <link type="text/css" href="/static/plugins/iCheck/skins/minimal/blue.css" rel="stylesheet">
+
+    <!--[if lt IE 10]>
+    <script type="text/javascript" src="/static/js/media.match.min.js"></script>
+    <script type="text/javascript" src="/static/js/respond.min.js"></script>
+    <script type="text/javascript" src="/static/js/placeholder.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="animated-content">
+
+<header id="topnav" class="navbar navbar-default navbar-fixed-top" role="banner">
+
+    <div class="logo-area">
+        <span id="trigger-sidebar" class="toolbar-trigger toolbar-icon-bg">
+            <a data-toggle="tooltips" data-placement="right" title="Toggle Sidebar">
+                <span class="icon-bg">
+                    <i class="ti ti-menu"></i>
+                </span>
+            </a>
+        </span>
+
+        <a class="navbar-brand" href="/">Vidzert</a>
+
+
+    </div>
+</header>
+
+<div id="wrapper">
+    <div id="layout-static">
+        <div class="static-sidebar-wrapper sidebar-default">
+            <div class="static-sidebar">
+                <div class="sidebar">
+                    <div class="widget stay-on-collapse" id="widget-sidebar">
+                        <nav role="navigation" class="widget-body">
+                            <ul class="acc-menu">
+                                <li><a href="{% url "promoter:home" %}"><i class="ti ti-home"></i><span>Video</span></a>
+                                </li>
+                                <li><a href="{% url "promoter:survey_home_page" %}"><i class="ti ti-home"></i><span>Survey</span></a>
+                                </li>
+                                <hr>
+                                <li><a href="{% url "promoter:watched" %}"><i class="ti ti-video-camera"></i><span>Watched Videos</span></span>
+                                </a></li>
+                                <li><a href="{% url "promoter:filled" %}"><i class="ti ti-video-camera"></i><span>Filled Surveys</span></span>
+                                </a></li>
+
+                                <li class="nav-separator"><span>Personal</span></li>
+
+                                <li><a href="{% url "promoter:account" %}"><i class="ti ti-settings"></i><span>My Profile</span></a>
+                                </li>
+
+                                <li><a href="#"><i
+                                        class="ti ti-email"></i><span>Redeem Coins</span></a></li>
+                                <ul class="acc-menu">
+                                    <li><a href="{% url "promoter:transaction:prepaid" %}"><span>Prepaid</span></a></li>
+                                    <li><a href="{% url "promoter:transaction:postpaid" %}"><span>Postpaid</span></a>
+                                    </li>
+                                    <li><a href="{% url "promoter:transaction:paytm" %}"><span>PayTM</span></a></li>
+                                </ul>
+
+                                <li><a href="{% url "promoter:buy_perk" %}"><i
+                                        class="ti ti-email"></i><span>Redeem Eggs</span></a></li>
+                                <li class="nav-separator"><span>Extras</span></li>
+                                <li><a href="{% url "about" %}"><i class="ti ti-layout"></i><span>About Us</span></a>
+                                </li>
+                                <li><a href="{% url "tou" %}"><i
+                                        class="ti ti-view-list-alt"></i><span>Terms of use</span></a>
+                                </li>
+                                <li><a href="{% url "faq" %}"><i class="ti ti-control-shuffle"></i><span>FAQ</span></a>
+                                </li>
+                                <li><a href="{% url "security" %}"><i class="ti ti-shield"></i><span>Security</span></a>
+                                </li>
+                                <hr>
+                                <li><a href="{% url "helpdesk:submit_ticket" %}"><i
+                                        class="ti ti-email"></i><span>Help Desk</span></a></li>
+
+
+                                <hr>
+
+                                <li><a href="{% url "user:logout" %}"><i class="ti ti-close"></i><span>Logout</span></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="static-content-wrapper extra-padding-content">
+
+            {% block content-middle %}
+            {% endblock content-middle %}
+
+            {% block top-earners %}
+                <div class="col-md-3">
+                    <div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2>Top Earners(Today)</h2>
+                            </div>
+                            <table class="table table-striped m-n">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Coins</th>
+
+                                </tr>
+                                </thead>
+                                <tbody id="top_earners_body">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {% endblock top-earners %}
+
+        </div>
+    </div>
+</div>
+
+{% block modal %}
+{% endblock modal %}
+
+<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
+<!-- Load jQuery -->
+<script type="text/javascript" src="/static/js/jqueryui-1.10.3.min.js"></script>
+<!-- Load jQueryUI -->
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<!-- Load Bootstrap -->
+<script type="text/javascript" src="/static/js/enquire.min.js"></script>
+<!-- Load Enquire -->
+
+<script type="text/javascript" src="/static/plugins/velocityjs/velocity.min.js"></script>
+<!-- Load Velocity for Animated Content -->
+<script type="text/javascript" src="/static/plugins/velocityjs/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/static/plugins/wijets/wijets.js"></script>
+<!-- Wijet -->
+
+<script type="text/javascript" src="/static/plugins/codeprettifier/prettify.js"></script>
+<!-- Code Prettifier  -->
+<script type="text/javascript" src="/static/plugins/bootstrap-switch/bootstrap-switch.js"></script>
+<!-- Swith/Toggle Button -->
+
+<script type="text/javascript" src="/static/plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js"></script>
+<!-- Bootstrap Tabdrop -->
+
+<script type="text/javascript" src="/static/plugins/iCheck/icheck.min.js"></script>
+<!-- iCheck -->
+
+<script type="text/javascript" src="/static/plugins/nanoScroller/js/jquery.nanoscroller.min.js"></script>
+<!-- nano scroller -->
+
+<script type="text/javascript" src="/static/js/application.js"></script>
+<script type="text/javascript" src="/static/demo/demo.js"></script>
+<script type="text/javascript" src="/static/demo/demo-switcher.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+
+{% block script %}
+    <script>
+
+        var top_earners = "{% url 'user:top_earners' %}";
+
+        $.getJSON(top_earners, function (json) {
+
+            var table_body = document.getElementById("top_earners_body");
+
+            var top_earners = json.overall_top_earners_list;
+
+            console.log(top_earners);
+
+            for (var i = 0; i < top_earners.length; i++) {
+                var row = table_body.insertRow(i);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                cell1.innerHTML = i + 1;
+                cell2.innerHTML = top_earners[i].name;
+                cell3.innerHTML = top_earners[i].coins;
+            }
+        });
+
+    </script>
+
+{% endblock script %}
+
+</body>
+</html>

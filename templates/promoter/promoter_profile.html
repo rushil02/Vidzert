@@ -1,0 +1,83 @@
+{% extends 'promoter/base.html' %}
+
+{% block content-middle %}
+    <div class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2>About</h2>
+            </div>
+            <div class="panel-body">
+                <div class="about-area">
+                    <h4>Basic Information</h4>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>Coins</th>
+                                <td>{{ profile.promoteraccount.current_coins }}</td>
+                            </tr>
+
+                            <tr>
+                                <th>Eggs</th>
+                                <td>{{ profile.promoteraccount.current_eggs }}</td>
+
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <a href="{% url "promoter:buy_perk" %}" class="btn btn-default">Redeem Eggs</a>
+                    {% if  perks %}
+                        <h4>Perks</h4><br>
+                        {% for perk in perks %}
+                            {{ perk.perk_id.name }}<br>
+                            Quantity = {{ perk.quantity }}<br><br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="about-area">
+                    <h4>Personal Information</h4>
+
+                    <div class="table-responsive">
+                        <table class="table about-table">
+                            <tbody>
+                            <tr>
+                                <th>Name</th>
+                                <td>{{ user.name }} {% if profile.last_name %}{{ profile.last_name }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th>DOB</th>
+                                <td>{{ profile.dob }}</td>
+                            </tr>
+                            <tr>
+                                <th>Gender</th>
+                                <td>{{ profile.gender }}</td>
+                            </tr>
+                            <tr>
+                                <th>Area City</th>
+                                <td>{{ profile.area_city }}</td>
+                            </tr>
+                            <tr>
+                                <th>Area State</th>
+                                <td>{{ profile.are_state }}</td>
+                            </tr>
+                            <tr>
+                                <th>PAN</th>
+                                <td>{{ profile.PAN }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    <a href="{% url "promoter:update_profile" %}" class="btn btn-default">Edit Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content-middle %}
+
+</body>
+</html>

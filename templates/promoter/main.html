@@ -1,0 +1,115 @@
+{% extends 'promoter/base.html' %}
+
+{% block content-middle %}
+    <div class="col-md-9">
+        {% include 'promoter/video_list.html' %}
+
+    </div>
+{% endblock content-middle %}
+
+{% block modal %}
+
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">{{ video.name }}</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="perk_form" action="/#" method="post">
+                        {% csrf_token %}
+                        {% if pre_perk %}
+                            <h2>Pre Perks</h2>
+                            {% for perk in pre_perk %}
+
+                                <input class="pre_perk_input" id="{{ perk.perk_id.uuid }}" type="radio" name="pre_perk"
+                                       value="{{ perk.perk_id.uuid }}">{{ perk.perk_id.name }}
+                                Quantity = {{ perk.quantity }}
+                                <br>
+                            {% endfor %}
+                            <input type="radio" name="pre_perk" value="None">None<br>
+                            <div class="input_fields_wrap">Enter Position:
+                            <div><input type="text" name="position"/><br>
+                                Quantity of Perk =
+                                <div><input type="text" name="quantity"/>
+
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if post_perk %}
+                            <h2>Post Perks</h2>
+                            {% for perk in post_perk %}
+
+                                <input type="radio" name="post_perk" value="{{ perk.perk_id.uuid }}">
+                                {{ perk.perk_id.name }}
+                                Quantity = {{ perk.quantity }}
+                                <br>
+                            {% endfor %}
+                            <input type="radio" name="post_perk" value="None">None<br>
+                        {% endif %}
+                        <input type="submit" value="Submit"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+{% endblock modal %}
+
+
+{% block script %}
+
+    <script>
+        var top_earners = "/top_earners/";
+
+        $.getJSON(top_earners, function (json) {
+
+            var table_body = document.getElementById("top_earners_body");
+
+            var top_earners = json.overall_top_earners_list;
+
+            console.log(top_earners);
+
+            for (var i = 0; i < top_earners.length; i++) {
+                var row = table_body.insertRow(i);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                cell1.innerHTML = i + 1;
+                cell2.innerHTML = top_earners[i].name;
+                cell3.innerHTML = top_earners[i].coins;
+            }
+        });
+
+
+        $('a.video_item').click(function () {
+            var id = $(this).attr('id');
+            {% if pre_perk or post_perk %}
+                $('#perk_form').attr('action', '/pr/watch/' + id + '/');
+                $('#myModal').modal('show');
+            {% else %}
+                $(location).attr('href', '/pr/watch/' + id + '/')
+            {% endif %}
+        });
+
+        {#        $('input.pre_perk_input').click(function() {#}
+        {#            var wrapper = $(".input_fields_wrap");#}
+        {#            if($('input.pre_perk_input').is(':checked')) {#}
+        {#                $(wrapper).append('Enter: <div><input type="text" name="position"/></div>'); //add input box#}
+        {#            }#}
+        {#            else{#}
+        {#                $(wrapper).hide();#}
+        {#            }#}
+        {#        });#}
+
+    </script>
+
+{% endblock script %}

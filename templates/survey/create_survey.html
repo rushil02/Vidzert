@@ -1,0 +1,44 @@
+{% extends 'client/base.html' %}
+
+{% block content-middle %}
+
+    <div class="static-content">
+    <div class="page-content">
+
+    <div class="container-fluid">
+
+
+        <div class="row">
+            <div class="col-md-9">
+                <div class="tab-pane" id="tab-edit">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h2>Upload Video</h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form method="post" action="">
+                                        {% csrf_token %}
+                                        {{ survey_form.as_p }}
+                                        {{ survey_info_form.as_p }}
+                                        {{ survey_profile_form.as_p }}
+                                        {{ survey_account_form.as_p }}
+                                        <input type="submit" value="Submit">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+{% endblock content-middle %}
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+

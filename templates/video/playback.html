@@ -1,0 +1,582 @@
+{% extends 'base.html' %}
+{% block navbar %}
+    <link href="http://vjs.zencdn.net/5.0.2/video-js.css" rel="stylesheet">
+
+
+    <div class="logo-area">
+        <span id="trigger-sidebar" class="toolbar-trigger toolbar-icon-bg">
+            <a data-toggle="tooltips" data-placement="right" title="Toggle Sidebar">
+                <span class="icon-bg">
+                    <i class="ti ti-menu"></i>
+                </span>
+            </a>
+        </span>
+
+        <a class="navbar-brand" href="/">Vidzert</a>
+
+    </div>
+    <!-- logo-area -->
+
+    {% if not request.user.is_authenticated %}
+
+        <ul class="nav navbar-nav toolbar pull-right">
+            <li><a href="{% url 'user:client_registration' %}" class="btn btn-default">Advertise</a></li>
+            <li><a data-toggle="modal" href="/#login" class="btn btn-default">Sign in</a></li>
+            <li><a data-toggle="modal" href="/#registration" class="btn btn-default">Register</a></li>
+        </ul>
+        {% else %}
+        <ul class="nav navbar-nav toolbar pull-right">
+            <li><a href="{% url "promoter:home" %}">{{ request.user.name }}</a></li>
+            <li><a href="{% url "user:logout" %}">Logout</a></li>
+        </ul>
+    {% endif %}
+
+
+
+{% endblock navbar %}
+
+{% block sidebar %}
+
+
+    <div class="static-sidebar">
+        <div class="sidebar">
+
+            <div class="widget stay-on-collapse" id="widget-sidebar">
+                <nav role="navigation" class="widget-body">
+                    <ul class="acc-menu">
+
+                        <li><a href="index.html"><i class="ti ti-home"></i><span>Home</span></a></li>
+                        <li><a href="#"><i class="ti ti-angle-up"></i><span>Sign In</span></a></li>
+                        <li><a href="#"><i class="ti ti-plus"></i><span>Register</span></a></li>
+                        <li><a href="#"><i class="ti ti-video-clapper"></i><span>Watched Videos</span></a>
+                        </li>
+                        {% if not request.user.is_authenticated %}
+                            <li class="nav-separator"><span>Personal</span></li>
+                            <li><a href="#"><i class="ti ti-settings"></i><span>My Account</span></a></li>
+                        {% endif %}
+
+
+                        <li class="nav-separator"><span>Extras</span></li>
+                        <li><a href="#"><i class="ti ti-layout"></i><span>About Us</span></a></li>
+                        <li><a href="#"><i class="ti ti-view-list-alt"></i><span>Terms of use</span></a></li>
+                        <li><a href="#"><i class="ti ti-control-shuffle"></i><span>FAQ</span></a></li>
+                        <li><a href="#"><i class="ti ti-shield"></i><span>Security</span></a></li>
+                        <li><a href="#"><i class="ti ti-email"></i><span>Contact us</span></a></li>
+
+                        <hr>
+
+                        <li><a href="#"><i class="ti ti-close"></i><span>Logout</span></a></li>
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+{% endblock sidebar %}
+
+{% block modal %}
+    {% if not request.user.is_authenticated %}
+
+        <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h2 class="modal-title">Sign in</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" class="form-horizontal" id="validate-form" method="post">
+                            {% csrf_token %}
+                            <div class="form-group mb-md">
+                                {{ login_form.non_field_errors }}
+                                <div class="col-xs-12">
+                                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="ti ti-user"></i>
+                        </span>
+                                        {{ login_form.email.errors }}
+                                        {{ login_form.email }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-md">
+                                <div class="col-xs-12">
+                                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="ti ti-key"></i>
+                        </span>
+                                        {{ login_form.password.errors }}
+                                        {{ login_form.password }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-n">
+                                <div class="col-xs-12">
+                                    <a href="{% url 'user:password_reset_recover' %}" class="pull-left">Forgot
+                                        password?</a>
+
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="clearfix">
+                                    <a href="{% url 'user:sign_up_seperate' %}"
+                                       class="btn btn-default pull-left">Register</a>
+                                    <button type="submit" class="btn btn-primary pull-right">Login</button>
+                                </div>
+
+                            </div>
+                        </form>
+
+
+                    </div>
+
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div class="modal fade" id="registration" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h2 class="modal-title">Sign up</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" class="form-horizontal" method="post">
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+                            <div class="form-group mb-md">
+                                <label for="FullName" class="col-xs-4 control-label">First Name</label>
+
+                                <div class="col-xs-8">
+                                    {{ form.name.errors }}
+                                    {{ form.name }}
+                                </div>
+
+                            </div>
+
+                            <div class="form-group mb-md">
+                                <label for="Email" class="col-xs-4 control-label">Email</label>
+
+                                <div class="col-xs-8">
+                                    {{ form.email.errors }}
+                                    {{ form.email }}
+                                </div>
+                            </div>
+                            <div class="form-group mb-md">
+                                <label for="Mobile" class="col-xs-4 control-label">Mobile</label>
+
+                                <div class="col-xs-8">
+                                    {{ form.mobile.errors }}
+                                    {{ form.mobile }}
+
+                                </div>
+                            </div>
+                            <div class="form-group mb-md">
+                                <label for="Password" class="col-xs-4 control-label">Password</label>
+
+                                <div class="col-xs-8">
+                                    {{ form.password1.errors }}
+                                    {{ form.password1 }}
+                                </div>
+                            </div>
+                            <div class="form-group mb-md">
+                                <label for="ConfirmPassword" class="col-xs-4 control-label">Confirm Password</label>
+
+                                <div class="col-xs-8">
+                                    {{ form.password2.errors }}
+                                    {{ form.password2 }}
+                                </div>
+                            </div>
+
+                            <div class="clearfix">
+                                <a href="{% url 'user:login_seperate' %}" class="btn btn-default pull-left">Already
+                                    Registered? Login</a>
+                                <button type="submit" class="btn btn-primary pull-right">Register</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+    {% endif %}
+
+{% endblock modal %}
+
+{% block content-middle %}
+
+    <div class="col-md-2">
+        Advertisement
+
+    </div>
+    <div class="col-md-7">
+        <p>{{ video }}</p>
+
+        <video id="video1" class="video-js vjs-default-skin" controls
+               data-setup='{ "controlBar": { "playToggle": false, "progressControl": {"seekBar": false}}, "autoplay": false, "preload": "auto" }'
+               width="540" height="320" poster="http://vjs.zencdn.net/v/oceans.png">
+            <source src="{{ video.videofile.video_file_mp4.url }}" type="video/mp4">
+
+            <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
+            <source src="http://vjs.zencdn.net/v/oceans.ogv" type="video/ogg">
+            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser
+                that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+        </video>
+
+
+        <br>
+        Max Coins:{{ video.max_coins }}<br>
+        Publisher:{{ video.publisher }}<br>
+        Description: {{ video_info.desc }}<br><br>
+        {% if video_info.banner_landing_page %}
+            {% if user.is_authenticated %}
+                <a href="/pr/redirect/?link={{ video_info.banner_landing_page }}&video_uuid={{ video.uuid }}">Banner
+                    Landing Page</a><br>
+            {% else %}
+                <a href="/redirect/?link={{ video_info.banner_landing_page }}&video_uuid={{ video.uuid }}">Banner
+                    Landing Page</a><br>
+            {% endif %}
+        {% endif %}
+        {% if video_info.product_desc %}
+            {% if user.is_authenticated %}
+                <a href="/pr/redirect/?link={{ video_info.product_desc }}&video_uuid={{ video.uuid }}">More Info</a>
+                <br>
+            {% else %}
+                <a href="/redirect/?link={{ video_info.product_desc }}&video_uuid={{ video.uuid }}">More info</a>
+                <br>
+            {% endif %}
+        {% endif %}
+        {% if video_info.buy_product %}
+            {% if user.is_authenticated %}
+                <a href="/pr/redirect/?link={{ video_info.buy_product }}&video_uuid={{ video.uuid }}">Buy
+                    Product</a><br>
+            {% else %}
+                <a href="/redirect/?link={{ video_info.buy_product }}&video_uuid={{ video.uuid }}">Buy Product</a>
+                <br>
+            {% endif %}
+        {% endif %}
+        {% if user.is_authenticated %}
+            {% if user.user_type == 'P' or user.user_type == 'A' %}
+                Pre Perks Selected = {{ pre_perk }}<br>
+                Post Perk Selected = {{ post_perk }} <br>
+            {% endif %}
+        {% endif %}
+
+        <div class="well tooltips well-padding" data-trigger="hover" data-original-title="Details">
+            <p>Link:
+                <input id="url_field" type="url" value="http://google.com" class="clipboard">
+
+                <button id="copy_btn" class="btn-default btn">Copy</button>
+            </p>
+            <p>Description: </p>
+
+            <p>Publisher: </p>
+
+        </div>
+
+
+        <div id="viewed">
+            {#    {% if user.is_authenticated %}#}
+            {#        <div id = "coins_tag">Coins = <div id="coins"></div><br></div>#}
+            {#        Share link = <div id="share_link"></div><br>#}
+            {#        Coins could have won = <div id="fake_coins"></div><br>#}
+            {#        <div id="replay"></div>#}
+            {##}
+            {#        <div class="panel panel-default" style="width:30%">#}
+            {#      <!-- Default panel contents -->#}
+            {#      <div class="panel-heading">Panel heading</div>#}
+            {#      <div class="panel-body">#}
+            {#          <canvas id="canvas" width="250" height="250"></canvas>#}
+            {#      </div>#}
+            {#    </div>#}
+            {#        {% else %}#}
+            {#        Share link = <div id="share_link"></div><br>#}
+            {#        Coins could have won = <div id="fake_coins"></div><br>#}
+            {#    {% endif %}#}
+        </div>
+    </div>
+
+
+
+
+{% endblock content-middle %}
+{% block top-earners %}
+    <div class="col-md-3">
+        <div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>Top Earners(Today)</h2>
+                </div>
+                <table class="table table-striped m-n">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Coins</th>
+
+                    </tr>
+                    </thead>
+                    <tbody id="top_earners_body">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock top-earners %}
+
+
+
+{% block script %}
+
+    <script src="/static/js/Chart.min.js"></script>
+    <script src="http://vjs.zencdn.net/ie8/1.1.0/videojs-ie8.min.js"></script>
+    <script src="http://vjs.zencdn.net/5.0.2/video.js"></script>
+
+    <script>
+
+        var top_earners = "/top_earners/";
+
+        $.getJSON(top_earners, function (json) {
+
+            var table_body = document.getElementById("top_earners_body");
+
+            var top_earners = json.overall_top_earners_list;
+
+            for (var i = 0; i < top_earners.length; i++) {
+                var row = table_body.insertRow(i);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                cell1.innerHTML = i + 1;
+                cell2.innerHTML = top_earners[i].name;
+                cell3.innerHTML = top_earners[i].coins;
+            }
+        });
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        videojs("video1").ready(function () {
+            myPlayer = this;
+
+
+            var previousTime = 0;
+            var currentTime = 0;
+            var seekStart = null;
+            var ten_seconds = true;
+            var thirty_seconds = true;
+            var abort = true;
+            var on_end = true;
+
+            //TimeUpdate of Video
+
+            myPlayer.on('timeupdate', function () {
+                previousTime = currentTime;
+                currentTime = myPlayer.currentTime();
+                whereYouAt = myPlayer.currentTime();
+
+                console.log(whereYouAt);
+
+                //Ten seconds API Call
+
+                if (Boolean(ten_seconds) && (whereYouAt > 3) && (whereYouAt < 4)) {
+                    $.ajax({
+                        url: '{% url "user:at_10_seconds" %}',
+                        type: 'post',
+                        success: function (data) {
+                            console.log("10 seconds");
+                        }
+                    });
+
+                    ten_seconds = false;
+                }
+                //Thirty seconds API Call
+
+                if (Boolean(thirty_seconds) && (whereYouAt > 30) && (whereYouAt < 31)) {
+                    $.ajax({
+                        url: '{% url "user:at_30_seconds" %}',
+                        type: 'post',
+                        success: function (data) {
+                            console.log("30 seconds");
+                        }
+                    });
+                    thirty_seconds = false;
+                }
+
+            });
+
+
+            //Video Seek prevent
+
+            myPlayer.on('seeking', function () {
+                if (seekStart === null) {
+                    seekStart = previousTime;
+                }
+            });
+
+            myPlayer.on('seeked', function () {
+                if (currentTime > seekStart) {
+                    myPlayer.currentTime(seekStart);
+                }
+                seekStart = null;
+            });
+
+            //Disable button Pause on video window
+
+            myPlayer.off('click');
+            myPlayer.on("click", function (event) {
+                event.preventDefault();
+                console.log("click", event.clientX, event.clientY, myPlayer.currentTime());
+                myPlayer.play();
+            });
+
+            myPlayer.on('ended', function () {
+                if (Boolean(on_end)) {
+                    $.ajax({
+                        url: '{% url "user:at_end_of_video" %}',
+                        type: 'post',
+                        success: function (data) {
+                            console.log("End of video");
+                        }
+                    });
+                    {% if user.is_authenticated %}
+                        {% if user.user_type == 'P' %}
+                            $.post('/pr/viewed/', {video_uuid: '{{video.uuid}}'}, function (data) {
+                                var status = data.gandu;
+                                var coins = data.coins;
+                                var share_link = data.share_link;
+                                var x_data = data.x_data;
+                                var y_data = data.y_data;
+                                var fake_coins = data.fake_coins;
+                                $('#viewed').html("<div id = 'coins_tag'>Coins = <div id='coins'></div><br></div>Share link = <div id='share_link'></div><br>Coins could have won = <div id='fake_coins'></div><br> <div id='replay'></div><div class='panel panel-default' style='width:30%'><!-- Default panel contents --> <div class='panel-heading'>Panel heading</div> <div class='panel-body'> <canvas id='canvas' width='250' height='250'></canvas> </div> </div>");
+                                $('#coins').html(coins);
+                                $('#share_link').html(share_link);
+
+                                if (fake_coins != 0) {
+                                    $('#fake_coins').html(fake_coins);
+                                }
+
+                                var lineChartData = {
+                                    labels: x_data,
+                                    datasets: [
+                                        {
+                                            label: "My First dataset",
+                                            fillColor: "rgba(220,220,220,0.2)",
+                                            strokeColor: "rgba(220,220,220,1)",
+                                            pointColor: "rgba(220,220,220,1)",
+                                            pointStrokeColor: "#fff",
+                                            pointHighlightFill: "#fff",
+                                            pointHighlightStroke: "rgba(220,220,220,1)",
+                                            data: y_data
+                                        }
+                                    ]
+
+                                };
+                                var ctx = document.getElementById("canvas").getContext("2d");
+                                window.myLine = new Chart(ctx).Line(lineChartData, {
+                                    responsive: false
+                                });
+
+                            });
+                        {% elif user.user_type == 'A' or user.user_type == 'S' %}
+                            $('#viewed').html('<button id="authenticaion_button" onclick="window.location=&#39;/staff/authorise_video/{{ video.uuid }}/&#39;;">Authorise and Activate</button>');
+                        {% endif %}
+
+                    {% else %}
+                        $.post('/viewed/', {video_uuid: '{{video.uuid}}'}, function (data) {
+                            var share_link = data.share_link;
+
+                            $('#viewed').html("Share link = <div id='share_link'></div><br>Coins could have won = <div id='fake_coins'></div><br>");
+
+                            $('#share_link').html(share_link);
+                            $('#fake_coins').html({{ video.max_coins }});
+                        });
+                    {% endif %}
+                    on_end = false;
+                }
+            });
+
+            //Tab change Pause Play
+
+            var vis = (function () {
+                var stateKey, eventKey, keys = {
+                    hidden: "visibilitychange",
+                    webkitHidden: "webkitvisibilitychange",
+                    mozHidden: "mozvisibilitychange",
+                    msHidden: "msvisibilitychange"
+                };
+                for (stateKey in keys) {
+                    if (stateKey in document) {
+                        eventKey = keys[stateKey];
+                        break;
+                    }
+                }
+                return function (c) {
+                    if (c) {
+                        document.addEventListener(eventKey, c);
+                        //document.addEventListener("blur", c);
+                        //document.addEventListener("focus", c);
+                    }
+                    return !document[stateKey];
+                }
+            })();
+
+            vis(function () {
+
+                vis() ? myPlayer.play() : myPlayer.pause();
+                console.log(new Date, 'visible ?', vis());
+            });
+
+            $('#video1').bind('contextmenu', function () {
+                return false;
+            });
+
+        });
+
+
+    </script>
+
+    <!-- End loading site level scripts -->
+
+{% endblock script %}
+
+</body>
+</html>

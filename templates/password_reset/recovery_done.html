@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}<title>Vidzert | Password reset successful.</title>{% endblock %}
+
+{% block navbar %}
+
+    <div class="logo-area">
+        <span id="trigger-sidebar" class="toolbar-trigger toolbar-icon-bg">
+            <a data-toggle="tooltips" data-placement="right" title="Toggle Sidebar">
+                <span class="icon-bg">
+                    <i class="ti ti-menu"></i>
+                </span>
+            </a>
+        </span>
+
+        <a class="navbar-brand" href="/">Vidzert</a>
+
+
+    </div>
+    <!-- logo-area -->
+
+
+
+{% endblock navbar %}
+
+{% block sidebar %}
+    <div class="static-sidebar">
+        <div class="sidebar">
+            <div class="widget stay-on-collapse" id="widget-sidebar">
+                <nav role="navigation" class="widget-body">
+                    <ul class="acc-menu">
+                        <li><a href="/"><i class="ti ti-home"></i><span>Home</span></a></li>
+                        <li><a href="/pr/"><i class="ti ti-home"></i><span>Dashboard</span></a></li>
+                        <li class="nav-separator"><span>Personal</span></li>
+                        <li><a href="/pr/profile/"><i class="ti ti-settings"></i><span>My Profile</span></a></li>
+                        <li><a href="/pr/profile/edit/"><i class="ti ti-settings"></i><span>Edit Profile</span></a></li>
+                        <li><a href="/pr/survey"><i class="ti ti-upload"></i><span>Fill Survey</span></span></a></li>
+                        <li><a href="/pr/watched/"><i class="ti ti-video-camera"></i><span>Watched Videos</span></span>
+                        </a></li>
+                        <li class="nav-separator"><span>Extras</span></li>
+                        <li><a href="#"><i class="ti ti-layout"></i><span>About Us</span></a></li>
+                        <li><a href="#"><i class="ti ti-view-list-alt"></i><span>Terms of use</span></a></li>
+                        <li><a href="#"><i class="ti ti-control-shuffle"></i><span>FAQ</span></a></li>
+                        <li><a href="#"><i class="ti ti-shield"></i><span>Security</span></a></li>
+                        <li><a href="#"><i class="ti ti-email"></i><span>Contact us</span></a></li>
+
+                        <hr>
+
+                        <li><a href="#"><i class="ti ti-close"></i><span>Logout</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+{% endblock sidebar %}
+
+{% block content-middle %}
+    <div class="static-content">
+        <div class="page-content">
+
+            <div class="container-fluid">
+
+
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="tab-pane" id="tab-edit">
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h2>Edit</h2>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <p>Your password has successfully been reset. You can use it right now on
+                                                the login page.</p>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content-middle %}

@@ -1,0 +1,69 @@
+{% extends 'client/base.html' %}
+{% block content-middle %}
+
+{#<form method="post" action="/cl/create_survey/{{ survey.uuid }}/{{ question_set.id }}/create_choice">#}
+{#    {% csrf_token %}#}
+{#    {{ choice_form }}#}
+{#    <input type="hidden" id="question_id_form" name="question_id" value="">#}
+{#    <input type="submit" value="Submit">#}
+{#</form>#}
+
+<h1>{{ survey }}</h1>
+<h2>{{ question_set }}</h2>
+
+<h3>Forms</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ question_formset.management_form }}
+    <div class='table'>
+    <table class='no_error'>
+    {% for form in question_formset %}
+        {{ form.as_table }}
+    {% endfor %}
+    </table>
+    </div>
+    <input type="submit" value="Submit">
+
+
+</form>
+{#<input type="button" value="Add More" id="add_more">#}
+
+{% endblock content-middle %}
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
+        <!-- Load jQuery -->
+        <script type="text/javascript" src="/static/js/jqueryui-1.10.3.min.js"></script>
+        <!-- Load jQueryUI -->
+        <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+        <!-- Load Bootstrap -->
+        <script type="text/javascript" src="/static/js/enquire.min.js"></script>
+        <!-- Load Enquire -->
+
+        <script type="text/javascript" src="/static/plugins/velocityjs/velocity.min.js"></script>
+        <!-- Load Velocity for Animated Content -->
+        <script type="text/javascript" src="/static/plugins/velocityjs/velocity.ui.min.js"></script>
+
+        <script type="text/javascript" src="/static/plugins/wijets/wijets.js"></script>
+        <!-- Wijet -->
+
+        <script type="text/javascript" src="/static/plugins/codeprettifier/prettify.js"></script>
+        <!-- Code Prettifier  -->
+        <script type="text/javascript" src="/static/plugins/bootstrap-switch/bootstrap-switch.js"></script>
+        <!-- Swith/Toggle Button -->
+
+        <script type="text/javascript" src="/static/plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js"></script>
+        <!-- Bootstrap Tabdrop -->
+
+        <script type="text/javascript" src="/static/plugins/iCheck/icheck.min.js"></script>
+        <!-- iCheck -->
+
+        <script type="text/javascript" src="/static/plugins/nanoScroller/js/jquery.nanoscroller.min.js"></script>
+        <!-- nano scroller -->
+
+        <script type="text/javascript" src="/static/js/application.js"></script>
+        <script type="text/javascript" src="/static/demo/demo.js"></script>
+        <script type="text/javascript" src="/static/demo/demo-switcher.js"></script>
+{% endblock script %}

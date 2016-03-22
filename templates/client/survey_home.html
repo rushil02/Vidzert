@@ -1,0 +1,146 @@
+{% extends 'client/base.html' %}
+{#{% block navbar %}#}
+{##}
+{#    <div class="logo-area">#}
+{#        <span id="trigger-sidebar" class="toolbar-trigger toolbar-icon-bg">#}
+{#            <a data-toggle="tooltips" data-placement="right" title="Toggle Sidebar">#}
+{#                <span class="icon-bg">#}
+{#                    <i class="ti ti-menu"></i>#}
+{#                </span>#}
+{#            </a>#}
+{#        </span>#}
+{##}
+{#        <a class="navbar-brand" href="/">Vidzert</a>#}
+{##}
+{##}
+{#    </div>#}
+{#    <!-- logo-area -->#}
+{##}
+{##}
+{##}
+{#{% endblock navbar %}#}
+{##}
+{#{% block sidebar %}#}
+{#    <div class="static-sidebar">#}
+{#        <div class="sidebar">#}
+{#            <div class="widget stay-on-collapse" id="widget-sidebar">#}
+{#                <nav role="navigation" class="widget-body">#}
+{#                    <ul class="acc-menu">#}
+{#                        <li><a href="/"><i class="ti ti-home"></i><span>Home</span></a></li>#}
+{#                        <li><a href="/cl/"><i class="ti ti-home"></i><span>Dashboard</span></a></li>#}
+{#                        <li class="nav-separator"><span>Personal</span></li>#}
+{#                        <li><a href="/cl/profile/"><i class="ti ti-settings"></i><span>My Profile</span></a></li>#}
+{#                        <li><a href="/cl/profile/edit/"><i class="ti ti-settings"></i><span>Edit Profile</span></a></li>#}
+{#                        <li><a href="#"><i class="ti ti-video-camera"></i><span>Active Videos</span></span>#}
+{#                        </a></li>#}
+{#                        <li><a href="#"><i class="ti ti-alert"></i><span>Non-Active Videos</span></span>#}
+{#                        </a></li>#}
+{#                        <li><a href="/cl/upload/"><i class="ti ti-upload"></i><span>Upload Video</span></span></a></li>#}
+{#                        <li><a href="/cl/survey/"><i class="ti ti-upload"></i><span>Survey</span></span></a></li>#}
+{#                        <li class="nav-separator"><span>Extras</span></li>#}
+{#                        <li><a href="#"><i class="ti ti-layout"></i><span>About Us</span></a></li>#}
+{#                        <li><a href="#"><i class="ti ti-view-list-alt"></i><span>Terms of use</span></a></li>#}
+{#                        <li><a href="#"><i class="ti ti-control-shuffle"></i><span>FAQ</span></a></li>#}
+{#                        <li><a href="#"><i class="ti ti-shield"></i><span>Security</span></a></li>#}
+{#                        <li><a href="#"><i class="ti ti-email"></i><span>Contact us</span></a></li>#}
+{##}
+{#                        <hr>#}
+{##}
+{#                        <li><a href="#"><i class="ti ti-close"></i><span>Logout</span></a></li>#}
+{#                    </ul>#}
+{#                </nav>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#{% endblock sidebar %}#}
+
+{% block content-middle %}
+    <div class="static-content-wrapper client-extra-padding">
+        <div class="static-content">
+            <div class="page-content">
+
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h2>About</h2>
+                                </div>
+                                <div class="panel-body">
+
+                                    <h1>Surveys</h1>
+                                    {% for survey in surveys %}
+                                        <a href="/cl/create_survey/{{ survey.uuid }}">{{ survey }}<br></a>
+                                    {% endfor %}
+
+                                    <a href="/cl/create_survey/"><h2>Create Survey</h2></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content-middle %}
+
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+
+    $('a.video_item').click(function () {
+        var id = $(this).attr('id');
+        {% if pre_perk or post_perk %}
+            $('#perk_form').attr('action', '/pr/watch/' + id + '/');
+            $('#myModal').modal('show');
+        {% else %}
+            $(location).attr('href', '/pr/watch/' + id + '/')
+        {% endif %}
+    });
+
+    {#        $('input.pre_perk_input').click(function() {#}
+    {#            var wrapper = $(".input_fields_wrap");#}
+    {#            if($('input.pre_perk_input').is(':checked')) {#}
+    {#                $(wrapper).append('Enter: <div><input type="text" name="position"/></div>'); //add input box#}
+    {#            }#}
+    {#            else{#}
+    {#                $(wrapper).hide();#}
+    {#            }#}
+    {#        });#}
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{% extends 'promoter/base.html' %}
+
+{% block content-middle %}
+    {% if uuid %}
+        <p>perk bought successfully, UUID is {{ uuid }}</p>
+    {% endif %}
+
+    <div class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2>Buy Perk</h2>
+            </div>
+
+            {% if perks %}
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {% for perk in perks %}
+                        <input type="radio" name="perk_uuid" value="{{ perk.uuid }}">{{ perk }} Cost = {{ perk.cost }}
+                        <br>
+                    {% endfor %}
+                    <input type="submit" value="BUY"><br><br>
+                </form>
+            {% else %}
+                You have less eggs! Andey Khao! Phir wapas aaao!
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock content-middle %}
+
+
+
+
+
+

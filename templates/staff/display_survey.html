@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}
+</head>
+<body>
+{% for questionset in question_set %}
+    <h2>{{ questionset }}</h2>
+    <table class="table">
+        <thead class="thead-default">
+        <tr>
+            <th>Question Number</th>
+            <th>Sort Id</th>
+            <th>Question Text</th>
+            <th>Question Type</th>
+            <th>Extra Text</th>
+            <th>Required</th>
+            <th>Footer Text</th>
+            <th>Create Time</th>
+            <th>Update Time</th>
+            <th>Choices</th>
+        </tr>
+        {% for question in questionset.question_set.all %}
+            <tr>
+                <td>{{ question.number }}</td>
+                <td>{{ question.sort_id }}</td>
+                <td>{{ question.text }}</td>
+                <td>{{ question.question_type }}</td>
+                <td>{{ question.extra_text }}</td>
+                <td>{{ question.required }}</td>
+                <td>{{ question.footer_text }}</td>
+                <td>{{ question.create_time }}</td>
+                <td>{{ question.update_time }}</td>
+                {% if question.question_type == 'CH1' or question.question_type == 'CH2' or question.question_type == 'CH4' or question.question_type == 'CH6' %}
+                <td>
+                    {{ question.choices }}
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endfor %}
+
+<button class="btn" onclick="location.href = '/staff/authorise_survey/{{ survey.uuid }}/';">Authorise and Activate
+</button>
+
+<form method=post action="{% url 'staff:reject_survey' survey.uuid %}">{% csrf_token %}Error type: <br>
+    <input type="checkbox" name="question_error" value="QE"> Survey Question Error<br>
+    <input type="checkbox" name="info_error" value="IE"> Survey Information Error<br>
+    <input type="text" name="error_message" required>
+    <input type="submit" value="Reject Survey">
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>

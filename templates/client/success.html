@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1>Payment Successful</h1>
+{% if video_uuid %}
+    <a href="{% url 'client:upload_file' video_uuid %}">Upload Video File</a>
+{% elif survey_uuid %}
+    <a href="{% url 'client:create_question_set' survey_uuid %}">Create Survey</a>
+{% endif %}
+</body>
+</html>

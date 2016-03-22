@@ -1,0 +1,12 @@
+{% extends "promoter/base.html" %}
+
+{% block content-middle %}
+<h1>{{ survey }}</h1>
+<h2>{{ question_set }}</h2>
+<h3>{{ question.text }}</h3>
+<form method="post" action="/pr/check_question/{{ survey.uuid }}/">
+    {% csrf_token %}
+    {{ answer_form }}
+    <input type="submit" value="Submit">
+</form>
+{% endblock content-middle %}

@@ -1,0 +1,196 @@
+<!-- Static navbar -->
+<header id="topnav" class="navbar navbar-default navbar-fixed-top" role="banner">
+
+    <div class="logo-area">
+        <span id="trigger-sidebar" class="toolbar-trigger toolbar-icon-bg">
+            <a data-toggle="tooltips" data-placement="right" title="Toggle Sidebar">
+                <span class="icon-bg">
+                    <i class="ti ti-menu"></i>
+                </span>
+            </a>
+        </span>
+
+        <a class="navbar-brand" href="/">Vidzert</a>
+
+
+    </div>
+    <!-- logo-area -->
+    {% if request.user.is_authenticated %}
+        <li><a href="/logout/">Logout</a></li>
+    {% elif not request.user.is_authenticated %}
+        <ul class="nav navbar-nav toolbar pull-right">
+        <li><a href="/advertise/" class="btn btn-default">Advertise</a></li>
+        <li><a data-toggle="modal" href="/#login" class="btn btn-default">Sign in</a></li>
+        <li><a data-toggle="modal" href="/#registration" class="btn btn-default">Register</a></li>
+    {% endif %}
+    </ul>
+
+</header>
+
+{% if not request.user.is_authenticated %}
+    <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title">Sign in</h2>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="form-horizontal" id="validate-form" method="post">
+                        {% csrf_token %}
+                        <div class="form-group mb-md">
+                            {{ login_form.non_field_errors }}
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="ti ti-user"></i>
+                        </span>
+                                    {{ login_form.email.errors }}
+                                    {{ login_form.email }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-md">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="ti ti-key"></i>
+                        </span>
+                                    {{ login_form.password.errors }}
+                                    {{ login_form.password }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-n">
+                            <div class="col-xs-12">
+                                <a href="extras-forgotpassword.html" class="pull-left">Forgot password?</a>
+
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="clearfix">
+                                <a href="registration.html" class="btn btn-default pull-left">Register</a>
+                                <button type="submit" class="btn btn-primary pull-right">Login</button>
+                            </div>
+
+                        </div>
+                    </form>
+
+
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <div class="modal fade" id="registration" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title">Sign up</h2>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="form-horizontal" method="post">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <div class="form-group mb-md">
+                            <label for="FullName" class="col-xs-4 control-label">First Name</label>
+
+                            <div class="col-xs-8">
+                                {{ form.name.errors }}
+                                {{ form.name }}
+                            </div>
+
+                        </div>
+
+                        <div class="form-group mb-md">
+                            <label for="Email" class="col-xs-4 control-label">Email</label>
+
+                            <div class="col-xs-8">
+                                {{ form.email.errors }}
+                                {{ form.email }}
+                            </div>
+                        </div>
+                        <div class="form-group mb-md">
+                            <label for="Mobile" class="col-xs-4 control-label">Mobile</label>
+
+                            <div class="col-xs-8">
+                                {{ form.mobile.errors }}
+                                {{ form.mobile }}
+
+                            </div>
+                        </div>
+                        <div class="form-group mb-md">
+                            <label for="Password" class="col-xs-4 control-label">Password</label>
+
+                            <div class="col-xs-8">
+                                {{ form.password1.errors }}
+                                {{ form.password1 }}
+                            </div>
+                        </div>
+                        <div class="form-group mb-md">
+                            <label for="ConfirmPassword" class="col-xs-4 control-label">Confirm Password</label>
+
+                            <div class="col-xs-8">
+                                {{ form.password2.errors }}
+                                {{ form.password2 }}
+                            </div>
+                        </div>
+
+                        <div class="clearfix">
+                            <a href="login.html" class="btn btn-default pull-left">Already Registered? Login</a>
+                            <button type="submit" class="btn btn-primary pull-right">Register</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+{% endif %}
+
+{#<nav class="navbar navbar-default navbar-static-top">#}
+{#  <div class="container">#}
+{##}
+{#    <div id="navbar" class="navbar-collapse collapse">#}
+{#        {% if request.user.is_authenticated %}#}
+{#            <ul class="nav navbar-nav navbar-right">#}
+{#                <li><a href="/pr/account/">Signed in as {{ user }}</a></li>#}
+{#                {% if request.user.user_type == 'P' or request.user.user_type == 'A' %}#}
+{#                    <li><a href="/pr/logout/">Logout</a></li>#}
+{#                    {% elif request.user.user_type == 'C' or request.user.user_type == 'A' %}#}
+{#                    <li><a href="/cl/logout/">Logout</a></li>#}
+{#                    {% elif request.user.user_type == 'S' or request.user.user_type == 'A' %}#}
+{#                    <li><a href="/staff/logout/">Logout</a></li>#}
+{#                    {% endif %}#}
+{##}
+{#            </ul>#}
+{#        {% elif not request.user.is_authenticated %}#}
+{#            <div class="navbar-right">#}
+{#      <form class="navbar-form" role="search" id="login_user" method="post" action="/login/">#}
+{#          {% csrf_token %}#}
+{#        <div class="form-group">#}
+{#            <input type="text" class="form-control" name="email" placeholder="email">#}
+{#        </div>#}
+{#        <div class="form-group">#}
+{#            <input type="password" class="form-control" name="password" placeholder="Password">#}
+{#        </div>#}
+{#        <button type="submit" class="btn btn-default">Sign In</button>#}
+{#          <button type="button" class="btn btn-primary">Sign Up</button>#}
+{#      </form>#}
+{##}
+{#            </div>#}
+{#        {% endif %}#}
+{##}
+{#    </div><!--/.nav-collapse -->#}
+{#  </div>#}
+{#</nav>#}

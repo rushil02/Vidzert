@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% block title %}
+        <title>Vidzert</title>
+    {% endblock title %}
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="description" content="Vidzert, Make Money by watching videos">
+    <meta name="author" content="Vidzert">
+
+    {% block meta-tags %}
+    {% endblock meta-tags %}
+
+    <link type='text/css' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600'
+          rel='stylesheet'>
+
+    <link type="text/css" href="/static/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link type="text/css" href="/static/fonts/themify-icons/themify-icons.css" rel="stylesheet">
+    <link type="text/css" href="/static/css/styles.css" rel="stylesheet">
+
+    <link type="text/css" href="/static/plugins/codeprettifier/prettify.css" rel="stylesheet">
+    <link type="text/css" href="/static/plugins/iCheck/skins/minimal/blue.css" rel="stylesheet">
+
+    <!--[if lt IE 10]>
+    <script type="text/javascript" src="/static/js/media.match.min.js"></script>
+    <script type="text/javascript" src="/static/js/respond.min.js"></script>
+    <script type="text/javascript" src="/static/js/placeholder.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="animated-content">
+
+<header id="topnav" class="navbar navbar-default navbar-fixed-top" role="banner">
+    {% block navbar %}
+    {% endblock navbar %}
+</header>
+{% block modal %}
+{% endblock modal %}
+<div id="wrapper">
+    <div id="layout-static">
+        <div class="static-sidebar-wrapper sidebar-default">
+            {% block sidebar %}
+            {% endblock sidebar %}
+        </div>
+        <div class="static-content-wrapper extra-padding-content">
+
+            {% block content-middle %}
+            {% endblock content-middle %}
+
+            {% block top-earners %}
+            {% endblock top-earners %}
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
+<!-- Load jQuery -->
+<script type="text/javascript" src="/static/js/jqueryui-1.10.3.min.js"></script>
+<!-- Load jQueryUI -->
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<!-- Load Bootstrap -->
+<script type="text/javascript" src="/static/js/enquire.min.js"></script>
+<!-- Load Enquire -->
+
+<script type="text/javascript" src="/static/plugins/velocityjs/velocity.min.js"></script>
+<!-- Load Velocity for Animated Content -->
+<script type="text/javascript" src="/static/plugins/velocityjs/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/static/plugins/wijets/wijets.js"></script>
+<!-- Wijet -->
+
+<script type="text/javascript" src="/static/plugins/codeprettifier/prettify.js"></script>
+<!-- Code Prettifier  -->
+<script type="text/javascript" src="/static/plugins/bootstrap-switch/bootstrap-switch.js"></script>
+<!-- Swith/Toggle Button -->
+
+<script type="text/javascript" src="/static/plugins/bootstrap-tabdrop/js/bootstrap-tabdrop.js"></script>
+<!-- Bootstrap Tabdrop -->
+
+<script type="text/javascript" src="/static/plugins/iCheck/icheck.min.js"></script>
+<!-- iCheck -->
+
+<script type="text/javascript" src="/static/plugins/nanoScroller/js/jquery.nanoscroller.min.js"></script>
+<!-- nano scroller -->
+
+<script type="text/javascript" src="/static/js/application.js"></script>
+<script type="text/javascript" src="/static/demo/demo.js"></script>
+<script type="text/javascript" src="/static/demo/demo-switcher.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+
+{% block script %}
+{% endblock script %}
+
+</body>
+</html>

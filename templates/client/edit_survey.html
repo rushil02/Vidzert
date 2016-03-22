@@ -1,0 +1,21 @@
+{% extends 'client/base.html' %}
+
+{% block content-middle %}
+    <div class="col-md-9">
+        {{ error_message }}<br>
+
+        <form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ survey_form.as_p }}
+
+            {{ survey_profile_form.as_p }}
+
+            {{ survey_info_form.as_p }}
+            <input type="submit" name="Submit" value="Sumbit">
+        </form>
+    </div>
+{% endblock content-middle %}
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>

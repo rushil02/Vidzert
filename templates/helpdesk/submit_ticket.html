@@ -1,0 +1,17 @@
+{% extends "helpdesk/base.html" %}
+
+{% block content-middle %}
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ ticket_form.as_p }}
+        {{ message_form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+
+<h2>Ticket Status</h2>
+    <form method="post" action="/helpdesk/check_ticket/">
+        {% csrf_token %}
+        {{ ticket_status_form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+{% endblock content-middle %}

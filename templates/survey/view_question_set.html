@@ -1,0 +1,56 @@
+{% extends 'client/base.html' %}
+{% block content-middle %}
+<h1>{{ survey }}</h1>
+
+<h2>Question Sets</h2>
+    {{ error_message }}<br>
+{% for question_set in question_sets %}
+    <h3><a href="/cl/create_survey/{{ survey.uuid }}/{{ question_set.id }}">{{ question_set }}</a></h3>
+{% endfor %}
+<br>
+
+<h2>Forms</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ question_set_formset.management_form }}
+    <div class='table'>
+    <table class='no_error'>
+    {% for form in question_set_formset %}
+        {{ form.as_table }}
+    {% endfor %}
+    </table>
+    </div>
+    <input type="submit" value="Submit">
+</form>
+{#<input type="button" value="Add More" id="add_more">#}
+<a href="{% url 'client:survey_activate_request' survey.uuid %}">Activate Survey</a>
+{% endblock content-middle %}
+
+{% block script %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script>
+    $('#add_more').click(function() {
+        cloneMore('div.table:last', 'questionset_set');
+    });
+</script>
+
+{% endblock script %}
+
+{#<script>#}
+{#    function cloneMore(selector, type) {#}
+{#    var newElement = $(selector).clone(true);#}
+{#    var total = $('#id_' + type + '-TOTAL_FORMS').val();#}
+{#    newElement.find(':input').each(function() {#}
+{#        var name = $(this).attr('name').replace('-' + (total-1) + '-','-' + total + '-');#}
+{#        var id = 'id_' + name;#}
+{#        $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');#}
+{#    });#}
+{#    newElement.find('label').each(function() {#}
+{#        var newFor = $(this).attr('for').replace('-' + (total-1) + '-','-' + total + '-');#}
+{#        $(this).attr('for', newFor);#}
+{#    });#}
+{#    total++;#}
+{#    $('#id_' + type + '-TOTAL_FORMS').val(total);#}
+{#    $(selector).after(newElement);#}
+{#</script>#}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}
+</head>
+<body>
+<table class="table table-hover table-bordered">
+        <thead class="thead-default">
+    <tr>
+        <th>Client</th>
+        <th>Maximum Coins</th>
+        <th>Status</th>
+        <th>Name</th>
+        <th>Featured</th>
+        <th>Publisher</th>
+        <th>Parent Video</th>
+        <th>Create Time</th>
+        <th>Update Time</th>
+        <th>Watch</th>
+    </tr>
+    </thead>
+    {% for video in videos %}
+
+            <td>{{ video.client_id }}</td>
+            <td>{{ video.max_coins }}</td>
+        <td>{{ video.status }}</td>
+            <td>{{ video.name }}</td>
+            <td>{{ video.featured }}</td>
+            <td>{{ video.publisher }}</td>
+            <td>{{ video.parent_video }}</td>
+            <td>{{ video.create_time }}</td>
+            <td>{{ video.update_time }}</td>
+            <td><button onclick="location.href = '/staff/watch/{{ video.uuid }}/';" class="btn btn-default">Watch</button></td>
+        </tr>
+    {% endfor %}
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</body>
+</html>

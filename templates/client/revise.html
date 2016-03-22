@@ -1,0 +1,44 @@
+{% extends 'client/base.html' %}
+
+{% block content-middle %}
+    <div class="static-content-wrapper client-extra-padding">
+        <div class="static-content">
+            <div class="page-content">
+
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h2>About</h2>
+                                </div>
+                                <div class="panel-body">
+
+                                    <form method="post" action="">
+                                        {% csrf_token %}
+                                        {{ video_form.as_p }}
+
+                                        {{ video_info_form.as_p }}
+
+                                        {{ video_account_form.as_p }}
+                                        <input type="submit" value="Upload">
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content-middle %}
+
+
+{% block script %}
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+{% endblock script %}

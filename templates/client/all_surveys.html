@@ -1,0 +1,51 @@
+{% extends "client/base.html" %}
+{% block content-middle %}
+    <div class="col-md-9">
+        <div class="panel panel-info">
+            <div class="panel-heading">Active Survey</div>
+            <div class="panel-body">
+                <div class="row">
+                    {% for survey in active_surveys %}
+                        <div class="col-sm-6 col-md-4">
+
+
+                            <div class="caption">
+
+
+                                <h4>{{ survey.title }}</h4>
+                                Views = {{ survey.surveyinsights.total_fills }}
+
+                                </a>
+                            </div>
+                        </div>
+                        </div>
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="panel panel-info">
+            <div class="panel-heading">Inactive Surveys</div>
+            <div class="panel-body">
+                <div class="row">
+                    {% for survey in inactive_surveys %}
+                        <div class="col-sm-6 col-md-4">
+
+
+                            <div class="caption">
+
+
+                                <h4>{{ survey.title }}</h4>
+                                Views = {{ survey.surveyinsights.total_fills }}
+
+                                </a>
+                            </div>
+                        </div>
+                        </div>
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content-middle %}

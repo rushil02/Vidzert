@@ -1,0 +1,12 @@
+{% extends "promoter/base.html" %}
+
+{% block content-middle %}
+<h1>{{ request.user.promoter }}</h1>
+
+    <a href="{% url "promoter:transaction:prepaid" %}"><h2>Recharge Mobile Prepaid</h2></a>
+
+    <a href="{% url "promoter:transaction:postpaid" %}"><h2>Recharge Mobile Postpaid</h2></a>
+
+<a href="/pr/redeem_coins/paytm/"><h2>PayTM Transfer</h2></a>
+
+{% endblock content-middle %}

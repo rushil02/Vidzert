@@ -1,0 +1,8 @@
+{% extends "promoter/base.html" %}
+
+{% block content-middle %}
+<form method="post" action="">
+    {% csrf_token %}
+{{ form.as_p }}
+</form>
+{% endblock content-middle %}
